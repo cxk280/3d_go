@@ -1,0 +1,103 @@
+body  {
+  background-color:burlywood;
+}
+
+.black-piece {
+  border-radius:50%;
+  width:50px;
+  height:50px;
+  background-color:black;
+  margin-left:12.5px;
+  border:1px solid black;
+}
+
+.white-piece {
+  border-radius:50%;
+  width:50px;
+  height:50px;
+  background-color:white;
+  margin-left:12.5px;
+  border:1px solid black;
+}
+
+.square {
+  width:75px;
+  height:75px;
+}
+
+.row1 {
+  border-top:1px solid black;
+  border-bottom:1px solid black;
+}
+
+.row2 {
+  border-bottom:1px solid black;
+}
+
+.row3 {
+  border-bottom:1px solid black;
+}
+
+.row4 {
+  border-bottom:1px solid black;
+}
+
+.row5 {
+  border-bottom:1px solid black;
+}
+
+.row6 {
+  border-bottom:1px solid black;
+}
+
+.row7 {
+  border-bottom:1px solid black;
+}
+
+.row8 {
+  border-bottom:1px solid black;
+}
+
+.row9 {
+  border-bottom:1px solid black;
+}
+
+.column1  {
+  border-left:1px solid black;
+}
+
+.column2  {
+  border-left:1px solid black;
+}
+
+.column3  {
+  border-left:1px solid black;
+}
+
+.column4  {
+  border-left:1px solid black;
+}
+
+.column5  {
+  border-left:1px solid black;
+}
+
+.column6  {
+  border-left:1px solid black;
+}
+
+.column7  {
+  border-left:1px solid black;
+}
+
+.column8  {
+  border-left:1px solid black;
+}
+
+.column9  {
+  border-left:1px solid black;
+  border-right:1px solid black;
+}
+
+/*I received guidance from http://stackoverflow.com/questions/6779712/style-a-table-as-a-tic-tac-toe-board-with-css in creating the HTML and CSS of the board.
+*/
