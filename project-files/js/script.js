@@ -308,10 +308,20 @@ $( document ).ready(function() {
             geometry55 = new THREE.SphereGeometry( 5, 32, 32 );
             material55 = new THREE.MeshBasicMaterial( { color: 0x000000 } );
             sphere55 = new THREE.Mesh( geometry55, material55 );
+            for (let i = 0; i < centerPoints.length; i++ )  {
+              //Create an empty array
+              //Create new var thisVector = (x + ", " + y + ", " + z)
+              //Create new var centerPointsVector = (centerPoints[i][0] + ", " + centerPoints[i][1] + ", " + centerPoints[i][2])
+              //Create new var vectorDistance = (thisVector).distanceTo(centerPointsVector)
+              //Push vectorDistance to new array
+            };
+            //Create new var addPieceHere = newArray.indexOf((Math.min(newArray));
+            //set the sphere's position to centerPoints[addPieceHere]
             sphere55.position.set(x,y,z);
             scene.add( sphere55 );
             whichTurn += 1;
             console.log(whichTurn);
+            //Maybe use .subVectors, iterate through the entire centerPoints array and then use Math.min() to see which is smallest, then choose that
           };
 
     function addPlayerWhite(x,y,z)  {
@@ -322,6 +332,7 @@ $( document ).ready(function() {
             scene.add( sphere66 );
             whichTurn += 1;
             console.log(whichTurn);
+            //Maybe use .subVectors, iterate through the entire centerPoints array and then use Math.min() to see which is smallest, then choose that
           };
 
     function addComputerBlack(x,y,z)  {
