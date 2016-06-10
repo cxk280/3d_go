@@ -3,6 +3,7 @@
 $( document ).ready(function() {
   // All my scripts here.
 
+  // Code for making the board in CSS.
   // var playerColor = prompt("Please enter either white or black as your player color");
 
   // while ((playerColor !== "white") && (playerColor !== "black"))  {
@@ -19,18 +20,21 @@ $( document ).ready(function() {
   //   };
   // })
 
-  //My three.js objects started with the code in the tutorial at http://threejs.org/docs/#Manual/Introduction/Creating_a_scene. I then played with this code referring to the rest of the three.js documentation to create what I need.
+  //My three.js objects started with the code in the tutorial at http://threejs.org/docs/#Manual/Introduction/Creating_a_scene. I then played with this code referring to the rest of the three.js documentation as well as various posts on Stack Overflow and elsewhere (cited throughout this code) to create what I need.
     var scene = new THREE.Scene();
     var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
     var cameraControls;
     var clock = new THREE.Clock();
 
+
+    //RENDERER VARIABLE AND PROPERTIES
     var renderer = new THREE.WebGLRenderer({alpha:true});
       //For help designing clear renderer, referred to http://stackoverflow.com/questions/20495302/transparent-background-with-three-js
       renderer.setSize( window.innerWidth, window.innerHeight );
       renderer.setClearColor( 0xffffff, 0 );
       document.body.appendChild( renderer.domElement );
 
+    //GAME PIECES
     var geometry1 = new THREE.SphereGeometry( 5, 32, 32 );
       var material1 = new THREE.MeshBasicMaterial( { color: 0x000000 } );
       var sphere1 = new THREE.Mesh( geometry1, material1 );
@@ -38,17 +42,19 @@ $( document ).ready(function() {
       sphere1.position.set(0,0,0);
       scene.add( sphere1 );
 
-    // var geometry2 = new THREE.SphereGeometry( 5, 32, 32 );
-    // var material2 = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
-    // var sphere2 = new THREE.Mesh( geometry2, material2 );
-    // sphere2.position.set(0,0,0);
-    // scene.add( sphere2 );
+    var geometry2 = new THREE.SphereGeometry( 5, 32, 32 );
+      var material2 = new THREE.MeshBasicMaterial( { color: 0xffffff } );
+      var sphere2 = new THREE.Mesh( geometry2, material2 );
+      sphere2.position.set(0,-16,0);
+      scene.add( sphere2 );
 
+    //GAME BOARD (PLANE)
     var geometry3 = new THREE.PlaneGeometry( 144, 144 );
       var material3 = new THREE.MeshBasicMaterial( {color: 0xdeb887, side: THREE.DoubleSide} );
       var plane1 = new THREE.Mesh( geometry3, material3 );
       scene.add( plane1 );
 
+    //GAME BOARD (LINES);
     var material4 = new THREE.LineBasicMaterial({color: 0x0000ff});
       var geometry4 = new THREE.Geometry();
       geometry4.vertices.push(
@@ -269,34 +275,54 @@ $( document ).ready(function() {
       var line20 = new THREE.Line( geometry23, material23 );
       scene.add( line20 );
 
+    //RAYCASTING (MAKING CLICKABLE AND RESPONSIVE)
+    //Building off tutorial at https://soledadpenades.com/articles/three-js-tutorials/object-picking/
+    //Since projector gave me an error, I found on this post that the newest version of three.js had removed it and how to fix it: http://stackoverflow.com/questions/29366109/three-js-three-projector-has-been-moved-to
+    //This also helped figure out how to get past the removal of projector: https://github.com/mrdoob/three.js/issues/5587
+    //Also referred here: http://barkofthebyte.azurewebsites.net/post/2014/05/05/three-js-projecting-mouse-clicks-to-a-3d-scene-how-to-do-it-and-how-it-works
+    var raycaster = new THREE.Raycaster();
+    var mouseVector = new THREE.Vector2();
+
+    window.addEventListener('click', function (myClick) {
+      mouseVector.x = 2 * (myClick.clientX / window.innerWidth) - 1;
+      // console.log(mouseVector.x);
+      mouseVector.y = 1 - 2 * (myClick.clientY / window.innerHeight);
+      // console.log(mouseVector.y);
+      // console.log(mouseVector);
+      raycaster.setFromCamera(mouseVector, camera);
+      var intersects = raycaster.intersectObject(plane1);
+      console.log(intersects);
+      // console.log(intersects);
+      // console.log(intersects);
+      // console.log("Click at" + intersects[0] + intersects[1]);
+      //Create var whichTurn
+      //Create var playerColor
+      //If whichTurn = "player", then if playerColor = "black" then run function to add black piece, if playerColor = "white" then run function to add white piece
+      //If whichTurn = "computer", then if playerColor = "black" then run random function to add white piece, if playerColor = "white" then run random function to add black piece
+    });
+
+
+    //CAMERA, INCLUDING TRACKBALL CONTROLS
     camera.position.z = 65;
     cameraControls = new THREE.TrackballControls(camera, renderer.domElement);
     cameraControls.target.set(0,0,0);
     //I learned how to control the camera with the mouse here: http://benchung.com/trackball-controls-three-js. See also the notes in the trackball-controls.js file./
 
-
+    //RENDERER FUNCTION
     function render() {
       var delta = clock.getDelta();
       requestAnimationFrame( render );
       cameraControls.update(delta);
       renderer.render( scene, camera );
-      // sphere1.rotation.x = 15;
-      // sphere2.rotation.x = 15;
-      // plane1.rotation.x += 0.005;
-      // plane1.rotation.y += 0.005;
-      // plane1.center;
-      // plane1.rotation.x = 15;
-      // sphere2.rotation.x += 0.03;
-      // sphere2.rotation.y += 0.03;
     }
     render();
 });
 
 /*Pseudocode
-1. Create a 9x9 game board (the smallest standard Go board) using the tic tac toe board from our classwork for reference. Create with HTML and CSS. DONE
-1.2 Create a 9x9 game board with three js?
-2. Create a white circle and black circle (game pieces) in CSS. DONE
+1. Create a 9x9 game board (the smallest standard Go board) using the tic tac toe board from our classwork for reference. Create with three.js. DONE
+2. Create a white circle and black circle (game pieces) in three.js. DONE
 3. Add event listeners to each square to place a piece inside.
+  Note: I learned about raycasting, related to event listening, here: https://soledadpenades.com/articles/three-js-tutorials/object-picking/
 4. Add a randomizer function to choose random moves by the computer.
 5. Add a "pass turn" button.
 6. Add a counter for captured pieces. Include a bonus for the player going second.
