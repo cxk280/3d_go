@@ -305,34 +305,79 @@ $( document ).ready(function() {
 
 
     function addPlayerBlack(x,y,z)  {
-            geometry55 = new THREE.SphereGeometry( 5, 32, 32 );
-            material55 = new THREE.MeshBasicMaterial( { color: 0x000000 } );
-            sphere55 = new THREE.Mesh( geometry55, material55 );
+            console.log("Number of center points left at start of player move: " + centerPoints.length);
+            var geometry55 = new THREE.SphereGeometry( 5, 32, 32 );
+            var material55 = new THREE.MeshBasicMaterial( { color: 0x000000 } );
+            var sphere55 = new THREE.Mesh( geometry55, material55 );
+            var myArray = [];
             for (let i = 0; i < centerPoints.length; i++ )  {
-              //Create an empty array
-              //Create new var thisVector = (x + ", " + y + ", " + z)
-              //Create new var centerPointsVector = (centerPoints[i][0] + ", " + centerPoints[i][1] + ", " + centerPoints[i][2])
+              //Create new three.js vector3, thisVector = (x + ", " + y + ", " + z)
+              thisVector = new THREE.Vector3;
+              thisVector.x = x;
+              thisVector.y = y;
+              thisVector.z = z;
+              //Create new three.js vector3, centerPointsVector = (centerPoints[i][0] + ", " + centerPoints[i][1] + ", " + centerPoints[i][2])
+              centerPointsVector = new THREE.Vector3;
+              centerPointsVector.x = centerPoints[i][0];
+              centerPointsVector.y = centerPoints[i][1];
+              centerPointsVector.z = centerPoints[i][2];
               //Create new var vectorDistance = (thisVector).distanceTo(centerPointsVector)
+              vectorDistance = thisVector.distanceTo(centerPointsVector);
               //Push vectorDistance to new array
+              myArray.push(vectorDistance);
             };
             //Create new var addPieceHere = newArray.indexOf((Math.min(newArray));
+            //For line below, help finding the minimum number in an array from here: http://www.jstips.co/en/calculate-the-max-min-value-from-an-array/
+            var addPieceHere = myArray.indexOf(Math.min.apply(null, myArray));
             //set the sphere's position to centerPoints[addPieceHere]
-            sphere55.position.set(x,y,z);
+            sphere55.position.set(centerPoints[addPieceHere][0],centerPoints[addPieceHere][1],centerPoints[addPieceHere][2]);
+            centerPoints.splice(addPieceHere, 1);
+            console.log("Number of center points left at end of player move: " + centerPoints.length);
             scene.add( sphere55 );
             whichTurn += 1;
-            console.log(whichTurn);
+            console.log("Turn number " + whichTurn);
             //Maybe use .subVectors, iterate through the entire centerPoints array and then use Math.min() to see which is smallest, then choose that
           };
 
     function addPlayerWhite(x,y,z)  {
-            geometry66 = new THREE.SphereGeometry( 5, 32, 32 );
-            material66 = new THREE.MeshBasicMaterial( { color: 0xffffff } );
-            sphere66 = new THREE.Mesh( geometry66, material66 );
-            sphere66.position.set(x,y,z);
+            console.log("Number of center points left at start of player move: " + centerPoints.length);
+            var geometry66 = new THREE.SphereGeometry( 5, 32, 32 );
+            var material66 = new THREE.MeshBasicMaterial( { color: 0xffffff } );
+            var sphere66 = new THREE.Mesh( geometry66, material66 );
+            var myArray = [];
+            for (let i = 0; i < centerPoints.length; i++ )  {
+              //Create new three.js vector3, thisVector = (x + ", " + y + ", " + z)
+              thisVector = new THREE.Vector3;
+              thisVector.x = x;
+              thisVector.y = y;
+              thisVector.z = z;
+              //Create new three.js vector3, centerPointsVector = (centerPoints[i][0] + ", " + centerPoints[i][1] + ", " + centerPoints[i][2])
+              centerPointsVector = new THREE.Vector3;
+              centerPointsVector.x = centerPoints[i][0];
+              centerPointsVector.y = centerPoints[i][1];
+              centerPointsVector.z = centerPoints[i][2];
+              //Create new var vectorDistance = (thisVector).distanceTo(centerPointsVector)
+              vectorDistance = thisVector.distanceTo(centerPointsVector);
+              //Push vectorDistance to new array
+              myArray.push(vectorDistance);
+            };
+            //Create new var addPieceHere = newArray.indexOf((Math.min(newArray));
+            //For line below, help finding the minimum number in an array from here: http://www.jstips.co/en/calculate-the-max-min-value-from-an-array/
+            var addPieceHere = myArray.indexOf(Math.min.apply(null, myArray));
+            //set the sphere's position to centerPoints[addPieceHere]
+            sphere66.position.set(centerPoints[addPieceHere][0],centerPoints[addPieceHere][1],centerPoints[addPieceHere][2]);
+            centerPoints.splice(addPieceHere, 1);
+            console.log("Number of center points left at end of player move: " + centerPoints.length);
             scene.add( sphere66 );
             whichTurn += 1;
-            console.log(whichTurn);
-            //Maybe use .subVectors, iterate through the entire centerPoints array and then use Math.min() to see which is smallest, then choose that
+            console.log("Turn number " + whichTurn);
+            // geometry66 = new THREE.SphereGeometry( 5, 32, 32 );
+            // material66 = new THREE.MeshBasicMaterial( { color: 0xffffff } );
+            // sphere66 = new THREE.Mesh( geometry66, material66 );
+            // sphere66.position.set(x,y,z);
+            // scene.add( sphere66 );
+            // whichTurn += 1;
+            // console.log("Turn number " + whichTurn);
           };
 
     function addComputerBlack(x,y,z)  {
@@ -342,9 +387,9 @@ $( document ).ready(function() {
             sphere77.position.set(x,y,z);
             scene.add( sphere77 );
             whichTurn += 1;
-            console.log(whichTurn);
+            console.log("Turn number " + whichTurn);
             centerPoints.splice(randomizer, 1);
-            console.log("Number of center points: " + centerPoints.length);
+            console.log("Number of center points remaining after computer move: " + centerPoints.length);
             //Add timeout to set 10 second delay before moving
           };
 
@@ -355,9 +400,9 @@ $( document ).ready(function() {
             sphere88.position.set(x,y,z);
             scene.add( sphere88 );
             whichTurn += 1;
-            console.log(whichTurn);
+            console.log("Turn number " + whichTurn);
             centerPoints.splice(randomizer, 1);
-            console.log("Number of center points: " + centerPoints.length);
+            console.log("Number of center points remaining after computer move: " + centerPoints.length);
             //Add timeout to set 10 second delay before moving
           };
 
@@ -368,24 +413,24 @@ $( document ).ready(function() {
       var intersects = raycaster.intersectObject(plane1);
       if (whichTurn % 2 === 0)  {
         if (playerColor === "black")  {
-          console.log("Add black piece");
+          // console.log("Add black piece");
           //function to add black piece
           addPlayerBlack(intersects[0].point.x,intersects[0].point.y,intersects[0].point.z);
         };
         if (playerColor === "white") {
-          console.log("Add white piece");
+          // console.log("Add white piece");
           //function to add white piece
           addPlayerWhite(intersects[0].point.x,intersects[0].point.y,intersects[0].point.z);
         };
       } if (whichTurn % 2 !== 0) {
           if (playerColor === "black")  {
-            console.log("Add white piece randomly");
+            // console.log("Add white piece randomly");
             //function to add white piece randomly
             randomizer = Math.floor(Math.random() * centerPoints.length);
             addComputerWhite(centerPoints[randomizer][0],centerPoints[randomizer][1],centerPoints[randomizer][2]);
           };
           if (playerColor === "white") {
-            console.log("Add black piece randomly");
+            // console.log("Add black piece randomly");
             //function to add black piece randomly
             randomizer = Math.floor(Math.random() * centerPoints.length);
             addComputerBlack(centerPoints[randomizer][0],centerPoints[randomizer][1],centerPoints[randomizer][2]);
