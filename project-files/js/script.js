@@ -30,7 +30,124 @@ $( document ).ready(function() {
     // var row8=[[-63.5, 48.5, 1],[-47.5, 48.5, 1],[-31.5, 48.5, 1],[-15.5, 48.5, 1],[0.5, 48.5, 1],[16.5, 48.5, 1],[32.5, 48.5, 1],[48.5, 48.5, 1],[64.5, 48.5, 1]];
     // var row9=[[-63.5, 64.5, 1],[-47.5, 64.5, 1],[-31.5, 64.5, 1],[-15.5, 64.5, 1],[0.5, 64.5, 1],[16.5, 64.5, 1],[32.5, 64.5, 1],[48.5, 64.5, 1],[64.5, 64.5, 1]];
 
+    var allNeighbors = [];
+
+
+    (function fillAllNeighbors ()  {
+      //bottom-left corner:
+      for (i=0; i<1; i++) {
+        allNeighbors.push([centerPoints[i+1], centerPoints[i+9]]);
+      };
+      //bottom row interior:
+      for (i=1; i<8; i++)  {
+        allNeighbors.push([centerPoints[i-1], centerPoints[i+1], centerPoints[i+9]]);
+      };
+      //bottom-right corner:
+      for (i=8; i<9; i++)  {
+        allNeighbors.push([centerPoints[i-1], centerPoints[i+9]]);
+      };
+      //row 2 left:
+      for (i=9; i<10; i++) {
+        allNeighbors.push([centerPoints[i+1], centerPoints[i-9], centerPoints[i+9]]);
+      };
+      //row 2 interior:
+      for (i=10; i<17; i++) {
+        allNeighbors.push([centerPoints[i-9], centerPoints[i+9], centerPoints[i+1], centerPoints[i-1]]);
+      };
+      //row 2 right:
+      for (i=17; i<18; i++) {
+        allNeighbors.push([centerPoints[i-1], centerPoints[i+9], centerPoints[i-9]]);
+      };
+      //row 3 left:
+      for (i=18; i<19; i++) {
+        allNeighbors.push([centerPoints[i+1], centerPoints[i-9], centerPoints[i+9]]);
+      };
+      //row 3 interior:
+      for (i=19; i<26; i++) {
+        allNeighbors.push([centerPoints[i-9], centerPoints[i+9], centerPoints[i+1], centerPoints[i-1]]);
+      };
+      //row 3 right:
+      for (i=26; i<27; i++) {
+        allNeighbors.push([centerPoints[i-1], centerPoints[i+9], centerPoints[i-9]]);
+      };
+      //row 4 left:
+      for (i=27; i<28; i++) {
+        allNeighbors.push([centerPoints[i+1], centerPoints[i-9], centerPoints[i+9]]);
+      };
+      //row 4 interior:
+      for (i=28; i<35; i++) {
+      allNeighbors.push([centerPoints[i-9], centerPoints[i+9], centerPoints[i+1], centerPoints[i-1]]);
+      };
+      //row 4 right:
+      for (i=35; i<36; i++) {
+        allNeighbors.push([centerPoints[i-1], centerPoints[i+9], centerPoints[i-9]]);
+      };
+      //row 5 left:
+      for (i=36; i<37; i++) {
+        allNeighbors.push([centerPoints[i+1], centerPoints[i-9], centerPoints[i+9]]);
+      };
+      //row 5 interior:
+      for (i=37; i<44; i++) {
+        allNeighbors.push([centerPoints[i-9], centerPoints[i+9], centerPoints[i+1], centerPoints[i-1]]);
+      };
+      //row 5 right:
+      for (i=44; i<45; i++) {
+        allNeighbors.push([centerPoints[i-1], centerPoints[i+9], centerPoints[i-9]]);
+      };
+      //row 6 left:
+      for (i=45; i<46; i++) {
+        allNeighbors.push([centerPoints[i+1], centerPoints[i-9], centerPoints[i+9]]);
+      };
+      //row 6 interior:
+      for (i=46; i<53; i++) {
+        allNeighbors.push([centerPoints[i-9], centerPoints[i+9], centerPoints[i+1], centerPoints[i-1]]);
+      };
+      //row 6 right:
+      for (i=53; i<54; i++) {
+        allNeighbors.push([centerPoints[i-1], centerPoints[i+9], centerPoints[i-9]]);
+      };
+      //row 7 left:
+      for (i=54; i<55; i++) {
+        allNeighbors.push([centerPoints[i+1], centerPoints[i-9], centerPoints[i+9]]);
+      };
+      //row 7 interior:
+      for (i=55; i<62; i++) {
+        allNeighbors.push([centerPoints[i-9], centerPoints[i+9], centerPoints[i+1], centerPoints[i-1]]);
+      };
+      //row 7 right:
+      for (i=62; i<63; i++) {
+        allNeighbors.push([centerPoints[i-1], centerPoints[i+9], centerPoints[i-9]]);
+      };
+      //row 8 left:
+      for (i=63; i<64; i++) {
+        allNeighbors.push([centerPoints[i+1], centerPoints[i-9], centerPoints[i+9]]);
+      };
+      //row 8 interior:
+      for (i=64; i<71; i++) {
+        allNeighbors.push([centerPoints[i-9], centerPoints[i+9], centerPoints[i+1], centerPoints[i-1]]);
+      };
+      //row 8 right:
+      for (i=71; i<72; i++) {
+        allNeighbors.push([centerPoints[i-1], centerPoints[i+9], centerPoints[i-9]]);
+      };
+      //top-left corner:
+      for (i=72; i<73; i++) {
+        allNeighbors.push([centerPoints[i+1], centerPoints[i-9]]);
+      };
+      //top row interior:
+      for (i=73; i<80; i++) {
+        allNeighbors.push([centerPoints[i-1], centerPoints[i+1], centerPoints[i-9]]);
+      };
+      //top-right corner:
+      for (i=80; i<81; i++) {
+        allNeighbors.push([centerPoints[i-1], centerPoints[i-9]]);
+      };
+    })();
+
     var randomizer;
+
+    var playerOccupied = [];
+    var computerOccupied = [];
 
     var playerColor = prompt("Please enter either white or black as your player color");
     while ((playerColor !== "white") && (playerColor !== "black"))  {
@@ -331,8 +448,8 @@ $( document ).ready(function() {
             var addPieceHere = myArray.indexOf(Math.min.apply(null, myArray));
             //set the sphere's position to centerPoints[addPieceHere]
             sphere55.position.set(centerPoints[addPieceHere][0],centerPoints[addPieceHere][1],centerPoints[addPieceHere][2]);
-            centerPoints.splice(addPieceHere, 1);
-            console.log("Number of center points left at end of player move: " + centerPoints.length);
+            // centerPoints.splice(addPieceHere, 1);
+            // console.log("Number of center points left at end of player move: " + centerPoints.length);
             scene.add( sphere55 );
             whichTurn += 1;
             console.log("Turn number " + whichTurn);
@@ -366,8 +483,8 @@ $( document ).ready(function() {
             var addPieceHere = myArray.indexOf(Math.min.apply(null, myArray));
             //set the sphere's position to centerPoints[addPieceHere]
             sphere66.position.set(centerPoints[addPieceHere][0],centerPoints[addPieceHere][1],centerPoints[addPieceHere][2]);
-            centerPoints.splice(addPieceHere, 1);
-            console.log("Number of center points left at end of player move: " + centerPoints.length);
+            // centerPoints.splice(addPieceHere, 1);
+            // console.log("Number of center points left at end of player move: " + centerPoints.length);
             scene.add( sphere66 );
             whichTurn += 1;
             console.log("Turn number " + whichTurn);
@@ -388,8 +505,8 @@ $( document ).ready(function() {
             scene.add( sphere77 );
             whichTurn += 1;
             console.log("Turn number " + whichTurn);
-            centerPoints.splice(randomizer, 1);
-            console.log("Number of center points remaining after computer move: " + centerPoints.length);
+            // centerPoints.splice(randomizer, 1);
+            // console.log("Number of center points remaining after computer move: " + centerPoints.length);
             //Add timeout to set 10 second delay before moving
           };
 
@@ -401,10 +518,84 @@ $( document ).ready(function() {
             scene.add( sphere88 );
             whichTurn += 1;
             console.log("Turn number " + whichTurn);
-            centerPoints.splice(randomizer, 1);
-            console.log("Number of center points remaining after computer move: " + centerPoints.length);
+            // centerPoints.splice(randomizer, 1);
+            // console.log("Number of center points remaining after computer move: " + centerPoints.length);
             //Add timeout to set 10 second delay before moving
           };
+
+  // 5.1 Create an empty array called playerOccupied and another empty array called computerOccupied. Add occupied center points to the appropriate array when they are played. DELETE THE REMOVAL OF ELEMENTS FROM CENTERPOINTS WITH EACH MOVE. THAT ARRAY MUST NOT BE CHANGED. INSTEAD RUN A FUNCTION TO CHECK IF playerOccupied or computerOccupied CONTAINS THE POINT. DONE
+  // 5.2 Create a new empty array called allNeighbors, with each element to be an array with neighbors for each square. Since the elements of centerPoints are listed in order, the elements of allNeighbors can be added by writing a self-calling function to push to allNeighbors. Example: for non-border squares, the neighbors (I think) would be [centerPoints[i-9], centerPoints[i+9], centerPoints[i+1], centerPoints[i-1]]. The corners should be added individually. Bottom side: [centerPoints[i-1], centerPoints[i+1], centerPoints[i+9]]. Top side: [centerPoints[i-1], centerPoints[i+1], centerPoints[i-9]]. Left side: [centerPoints[i+1], centerPoints[i-9], centerPoints[i+9]]. Right side: [centerPoints[i-1], centerPoints[i+9], centerPoints[i-9]]. DONE
+  // 5.3 After every turn, run a function iterating through playerOccupied and computerOccupied to see if all the elements of any array element of allNeighbors appears. If so, remove that center point from either playerOccupied or computerOccupied. Also remove the three.js object at that position (how?). If playerOccupied contains the point that is removed, increment computer point counter by 1. If computerOccupied contains the point that is removed, increment player point counter by 1.
+
+    // function removeCheckPlayer (thisSphereVector) {
+    //   if ((playerOccupied.includes(thisSphereVector) == false) && (computerOccupied.includes(thisSphereVector) == false))  {
+    //     playerOccupied.push(thisSphereVector)
+    //   }
+    // };
+
+    // function removeCheckComputer (thisSphereVector) {
+    //   if ((playerOccupied.includes(thisSphereVector) == false) && (computerOccupied.includes(thisSphereVector) == false))  {
+    //     computerOccupied.push(thisSphereVector)
+    //   }
+    // };
+
+    // var allNeighbors = [];
+    //   //bottom-left corner:
+    //   allNeighbors.push([centerPoints[i+1], centerPoints[i+9]]);
+    //   //bottom row interior:
+    //   allNeighbors.push([centerPoints[i-1], centerPoints[i+1], centerPoints[i+9]]);
+    //   //bottom-right corner:
+    //   allNeighbors.push([centerPoints[i-1], centerPoints[i+9]]);
+    //   //row 2 left:
+    //   allNeighbors.push([centerPoints[i+1], centerPoints[i-9], centerPoints[i+9]]);
+    //   //row 2 interior:
+    //   allNeighbors.push([centerPoints[i-9], centerPoints[i+9], centerPoints[i+1], centerPoints[i-1]]);
+    //   //row 2 right:
+    //   allNeighbors.push([centerPoints[i-1], centerPoints[i+9], centerPoints[i-9]]);
+    //   //row 3 left:
+    //   allNeighbors.push([centerPoints[i+1], centerPoints[i-9], centerPoints[i+9]]);
+    //   //row 3 interior:
+    //   allNeighbors.push([centerPoints[i-9], centerPoints[i+9], centerPoints[i+1], centerPoints[i-1]]);
+    //   //row 3 right:
+    //   allNeighbors.push([centerPoints[i-1], centerPoints[i+9], centerPoints[i-9]]);
+    //   //row 4 left:
+    //   allNeighbors.push([centerPoints[i+1], centerPoints[i-9], centerPoints[i+9]]);
+    //   //row 4 interior:
+    //   allNeighbors.push([centerPoints[i-9], centerPoints[i+9], centerPoints[i+1], centerPoints[i-1]]);
+    //   //row 4 right:
+    //   allNeighbors.push([centerPoints[i-1], centerPoints[i+9], centerPoints[i-9]]);
+    //   //row 5 left:
+    //   allNeighbors.push([centerPoints[i+1], centerPoints[i-9], centerPoints[i+9]]);
+    //   //row 5 interior:
+    //   allNeighbors.push([centerPoints[i-9], centerPoints[i+9], centerPoints[i+1], centerPoints[i-1]]);
+    //   //row 5 right:
+    //   allNeighbors.push([centerPoints[i-1], centerPoints[i+9], centerPoints[i-9]]);
+    //   //row 6 left:
+    //   allNeighbors.push([centerPoints[i+1], centerPoints[i-9], centerPoints[i+9]]);
+    //   //row 6 interior:
+    //   allNeighbors.push([centerPoints[i-9], centerPoints[i+9], centerPoints[i+1], centerPoints[i-1]]);
+    //   //row 6 right:
+    //   allNeighbors.push([centerPoints[i-1], centerPoints[i+9], centerPoints[i-9]]);
+    //   //row 7 left:
+    //   allNeighbors.push([centerPoints[i+1], centerPoints[i-9], centerPoints[i+9]]);
+    //   //row 7 interior:
+    //   allNeighbors.push([centerPoints[i-9], centerPoints[i+9], centerPoints[i+1], centerPoints[i-1]]);
+    //   //row 7 right:
+    //   allNeighbors.push([centerPoints[i-1], centerPoints[i+9], centerPoints[i-9]]);
+    //   //row 8 left:
+    //   allNeighbors.push([centerPoints[i+1], centerPoints[i-9], centerPoints[i+9]]);
+    //   //row 8 interior:
+    //   allNeighbors.push([centerPoints[i-9], centerPoints[i+9], centerPoints[i+1], centerPoints[i-1]]);
+    //   //row 8 right:
+    //   allNeighbors.push([centerPoints[i-1], centerPoints[i+9], centerPoints[i-9]]);
+    //   //top-left corner:
+    //   allNeighbors.push([centerPoints[i+1], centerPoints[i-9]]);
+    //   //top row interior:
+    //   allNeighbors.push([centerPoints[i-1], centerPoints[i+1], centerPoints[i-9]]);
+    //   //top-right corner:
+    //   allNeighbors.push([centerPoints[i-1], centerPoints[i-9]]);
+
+    // console.log(allNeighbors);
 
     window.addEventListener('click', function (myClick) {
       mouseVector.x = 2 * (myClick.clientX / window.innerWidth) - 1;
@@ -462,9 +653,9 @@ $( document ).ready(function() {
   Note: I learned about raycasting, related to event listening, here: https://soledadpenades.com/articles/three-js-tutorials/object-picking/
 4. Add a randomizer function to choose random moves by the computer. Place these by making an array of points precisely in the center of the squares and selecting one randomly. Write a function for pushing all center points to the centerPoints array. DONE
 5. Add functionality for removing a piece, adding its center point back to centerPoints, and incrementing the score counter by 1 when it has no freedoms.
-  5.1 Create an empty array called playerOccupied and another empty array called computerOccupied. Add occupied center points to the appropriate array when they are played. DELETE THE REMOVAL OF ELEMENTS FROM CENTERPOINTS WITH EACH MOVE. THAT ARRAY MUST NOT BE CHANGED. INSTEAD RUN A FUNCTION TO CHECK IF playerOccupied or computerOccupied CONTAINS THE POINT.
-  5.2 Create a new empty array called allNeighbors, with each element to be an array with neighbors for each square. Since the elements of centerPoints are listed in order, the elements of allNeighbors can be added by writing a self-calling function to push to allNeighbors. Example: for non-border squares, the neighbors (I think) would be [centerPoints[i-9], centerPoints[i+9], centerPoints[i+1], centerPoints[i-1]]. The corners should be added individually. Bottom side: [centerPoints[i-1], centerPoints[i+1], centerPoints[i+9]]. Top side: [centerPoints[i-1], centerPoints[i+1], centerPoints[i-9]]. Left side: [centerPoints[i+1], centerPoints[i-9], centerPoints[i+9]]. Right side: [centerPoints[i-1], centerPoints[i+9], centerPoints[i-9]].
+  5.1 Create an empty array called playerOccupied and another empty array called computerOccupied. Add occupied center points to the appropriate array when they are played. DELETE THE REMOVAL OF ELEMENTS FROM CENTERPOINTS WITH EACH MOVE. THAT ARRAY MUST NOT BE CHANGED. INSTEAD RUN A FUNCTION TO CHECK IF playerOccupied or computerOccupied CONTAINS THE POINT. DONE
+  5.2 Create a new empty array called allNeighbors, with each element to be an array with neighbors for each square. Since the elements of centerPoints are listed in order, the elements of allNeighbors can be added by writing a self-calling function to push to allNeighbors. Example: for non-border squares, the neighbors (I think) would be [centerPoints[i-9], centerPoints[i+9], centerPoints[i+1], centerPoints[i-1]]. The corners should be added individually. Bottom side: [centerPoints[i-1], centerPoints[i+1], centerPoints[i+9]]. Top side: [centerPoints[i-1], centerPoints[i+1], centerPoints[i-9]]. Left side: [centerPoints[i+1], centerPoints[i-9], centerPoints[i+9]]. Right side: [centerPoints[i-1], centerPoints[i+9], centerPoints[i-9]]. DONE
   5.3 After every turn, run a function iterating through playerOccupied and computerOccupied to see if all the elements of any array element of allNeighbors appears. If so, remove that center point from either playerOccupied or computerOccupied. Also remove the three.js object at that position (how?). If playerOccupied contains the point that is removed, increment computer point counter by 1. If computerOccupied contains the point that is removed, increment player point counter by 1.
-6. Show the score in the console after each human move.
-7.
+6. Add random time delay between 5-10 seconds for each computer move to be executed.
+7. Show the score in the console after each human move.
 */
