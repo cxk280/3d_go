@@ -458,9 +458,13 @@ $( document ).ready(function() {
 /*Pseudocode
 1. Create a 9x9 game board (the smallest standard Go board) using the tic tac toe board from our classwork for reference. Create with three.js. DONE
 2. Create a white circle and black circle (game pieces) in three.js. DONE
-3. Add event listeners to each square to place a piece inside.
+3. Add event listeners to each square to place a piece inside. DONE
   Note: I learned about raycasting, related to event listening, here: https://soledadpenades.com/articles/three-js-tutorials/object-picking/
-4. Add a randomizer function to choose random moves by the computer. Place these by making an array of points precisely in the center of the squares and selecting one randomly. Write a function for pushing all center points to the centerPoints array.
-5. Add a "pass turn" button.
-6. Add a counter for captured pieces. Include a bonus for the player going second.
+4. Add a randomizer function to choose random moves by the computer. Place these by making an array of points precisely in the center of the squares and selecting one randomly. Write a function for pushing all center points to the centerPoints array. DONE
+5. Add functionality for removing a piece, adding its center point back to centerPoints, and incrementing the score counter by 1 when it has no freedoms.
+  5.1 Create an empty array called playerOccupied and another empty array called computerOccupied. Add occupied center points to the appropriate array when they are played. DELETE THE REMOVAL OF ELEMENTS FROM CENTERPOINTS WITH EACH MOVE. THAT ARRAY MUST NOT BE CHANGED. INSTEAD RUN A FUNCTION TO CHECK IF playerOccupied or computerOccupied CONTAINS THE POINT.
+  5.2 Create a new empty array called allNeighbors, with each element to be an array with neighbors for each square. Since the elements of centerPoints are listed in order, the elements of allNeighbors can be added by writing a self-calling function to push to allNeighbors. Example: for non-border squares, the neighbors (I think) would be [centerPoints[i-9], centerPoints[i+9], centerPoints[i+1], centerPoints[i-1]]. The corners should be added individually. Bottom side: [centerPoints[i-1], centerPoints[i+1], centerPoints[i+9]]. Top side: [centerPoints[i-1], centerPoints[i+1], centerPoints[i-9]]. Left side: [centerPoints[i+1], centerPoints[i-9], centerPoints[i+9]]. Right side: [centerPoints[i-1], centerPoints[i+9], centerPoints[i-9]].
+  5.3 After every turn, run a function iterating through playerOccupied and computerOccupied to see if all the elements of any array element of allNeighbors appears. If so, remove that center point from either playerOccupied or computerOccupied. Also remove the three.js object at that position (how?). If playerOccupied contains the point that is removed, increment computer point counter by 1. If computerOccupied contains the point that is removed, increment player point counter by 1.
+6. Show the score in the console after each human move.
+7.
 */
