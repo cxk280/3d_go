@@ -144,10 +144,15 @@ $( document ).ready(function() {
       };
     })();
 
+    console.log(allNeighbors);
+
     var randomizer;
 
     var playerOccupied = [];
     var computerOccupied = [];
+
+    var playerScore = 0;
+    var computerScore = 0;
 
     var playerColor = prompt("Please enter either white or black as your player color");
     while ((playerColor !== "white") && (playerColor !== "black"))  {
@@ -451,6 +456,8 @@ $( document ).ready(function() {
             // centerPoints.splice(addPieceHere, 1);
             // console.log("Number of center points left at end of player move: " + centerPoints.length);
             scene.add( sphere55 );
+            playerAllNeighborsCheck();
+            console.log("Player score is: " + playerScore + "; Computer score is: " + computerScore);
             whichTurn += 1;
             console.log("Turn number " + whichTurn);
             //Maybe use .subVectors, iterate through the entire centerPoints array and then use Math.min() to see which is smallest, then choose that
@@ -486,6 +493,8 @@ $( document ).ready(function() {
             // centerPoints.splice(addPieceHere, 1);
             // console.log("Number of center points left at end of player move: " + centerPoints.length);
             scene.add( sphere66 );
+            playerAllNeighborsCheck();
+            console.log("Player score is: " + playerScore + "; Computer score is: " + computerScore);
             whichTurn += 1;
             console.log("Turn number " + whichTurn);
             // geometry66 = new THREE.SphereGeometry( 5, 32, 32 );
@@ -503,6 +512,8 @@ $( document ).ready(function() {
             sphere77 = new THREE.Mesh( geometry77, material77 );
             sphere77.position.set(x,y,z);
             scene.add( sphere77 );
+            computerAllNeighborsCheck();
+            console.log("Player score is: " + playerScore + "; Computer score is: " + computerScore);
             whichTurn += 1;
             console.log("Turn number " + whichTurn);
             // centerPoints.splice(randomizer, 1);
@@ -516,6 +527,8 @@ $( document ).ready(function() {
             sphere88 = new THREE.Mesh( geometry88, material88 );
             sphere88.position.set(x,y,z);
             scene.add( sphere88 );
+            computerAllNeighborsCheck();
+            console.log("Player score is: " + playerScore + "; Computer score is: " + computerScore);
             whichTurn += 1;
             console.log("Turn number " + whichTurn);
             // centerPoints.splice(randomizer, 1);
@@ -525,7 +538,32 @@ $( document ).ready(function() {
 
   // 5.1 Create an empty array called playerOccupied and another empty array called computerOccupied. Add occupied center points to the appropriate array when they are played. DELETE THE REMOVAL OF ELEMENTS FROM CENTERPOINTS WITH EACH MOVE. THAT ARRAY MUST NOT BE CHANGED. INSTEAD RUN A FUNCTION TO CHECK IF playerOccupied or computerOccupied CONTAINS THE POINT. DONE
   // 5.2 Create a new empty array called allNeighbors, with each element to be an array with neighbors for each square. Since the elements of centerPoints are listed in order, the elements of allNeighbors can be added by writing a self-calling function to push to allNeighbors. Example: for non-border squares, the neighbors (I think) would be [centerPoints[i-9], centerPoints[i+9], centerPoints[i+1], centerPoints[i-1]]. The corners should be added individually. Bottom side: [centerPoints[i-1], centerPoints[i+1], centerPoints[i+9]]. Top side: [centerPoints[i-1], centerPoints[i+1], centerPoints[i-9]]. Left side: [centerPoints[i+1], centerPoints[i-9], centerPoints[i+9]]. Right side: [centerPoints[i-1], centerPoints[i+9], centerPoints[i-9]]. DONE
-  // 5.3 After every turn, run a function iterating through playerOccupied and computerOccupied to see if all the elements of any array element of allNeighbors appears. If so, remove that center point from either playerOccupied or computerOccupied. Also remove the three.js object at that position (how?). If playerOccupied contains the point that is removed, increment computer point counter by 1. If computerOccupied contains the point that is removed, increment player point counter by 1.
+  // 5.3 After every turn, run a function iterating through playerOccupied and computerOccupied to see if all the elements of any array element of allNeighbors appears. If so, remove that center point from either playerOccupied or computerOccupied. Also remove the three.js object at that position (how?). If playerOccupied contains the point that is removed, increment computer point counter by 1. If computerOccupied contains the point that is removed, increment player point counter by 1. DONE EXCEPT FOR REMOVING THREEJS OBJECT.
+  // 6. Add random time delay between 5-10 seconds for each computer move to be executed.
+  // 7. Show the score in the console after each human move.
+
+  //ADD TO FUNCTION TO REMOVE THREEJS OBJECTS.
+
+
+    function playerAllNeighborsCheck()  {
+      for (let i=0; i < computerOccupied.length; i++) {
+        var centerPointsIndex = centerPoints.indexOf(computerOccupied[i]);
+        if (playerOccupied.includes(allNeighbors[centerPointsIndex]) == true)  {
+          computerOccupied.splice(i, 1);
+          playerScore += 1;
+        };
+      };
+    };
+
+    function computerAllNeighborsCheck()  {
+      for (let i=0; i < playerOccupied.length; i++) {
+        var centerPointsIndex = centerPoints.indexOf(playerOccupied[i]);
+        if (computerOccupied.includes(allNeighbors[centerPointsIndex]) == true)  {
+          playerOccupied.splice(i, 1);
+          computerScore += 1;
+        };
+      };
+    };
 
     // function removeCheckPlayer (thisSphereVector) {
     //   if ((playerOccupied.includes(thisSphereVector) == false) && (computerOccupied.includes(thisSphereVector) == false))  {
@@ -655,7 +693,7 @@ $( document ).ready(function() {
 5. Add functionality for removing a piece, adding its center point back to centerPoints, and incrementing the score counter by 1 when it has no freedoms.
   5.1 Create an empty array called playerOccupied and another empty array called computerOccupied. Add occupied center points to the appropriate array when they are played. DELETE THE REMOVAL OF ELEMENTS FROM CENTERPOINTS WITH EACH MOVE. THAT ARRAY MUST NOT BE CHANGED. INSTEAD RUN A FUNCTION TO CHECK IF playerOccupied or computerOccupied CONTAINS THE POINT. DONE
   5.2 Create a new empty array called allNeighbors, with each element to be an array with neighbors for each square. Since the elements of centerPoints are listed in order, the elements of allNeighbors can be added by writing a self-calling function to push to allNeighbors. Example: for non-border squares, the neighbors (I think) would be [centerPoints[i-9], centerPoints[i+9], centerPoints[i+1], centerPoints[i-1]]. The corners should be added individually. Bottom side: [centerPoints[i-1], centerPoints[i+1], centerPoints[i+9]]. Top side: [centerPoints[i-1], centerPoints[i+1], centerPoints[i-9]]. Left side: [centerPoints[i+1], centerPoints[i-9], centerPoints[i+9]]. Right side: [centerPoints[i-1], centerPoints[i+9], centerPoints[i-9]]. DONE
-  5.3 After every turn, run a function iterating through playerOccupied and computerOccupied to see if all the elements of any array element of allNeighbors appears. If so, remove that center point from either playerOccupied or computerOccupied. Also remove the three.js object at that position (how?). If playerOccupied contains the point that is removed, increment computer point counter by 1. If computerOccupied contains the point that is removed, increment player point counter by 1.
+  5.3 After every turn, run a function iterating through playerOccupied and computerOccupied to see if all the elements of any array element of allNeighbors appears. If so, remove that center point from either playerOccupied or computerOccupied. Also remove the three.js object at that position (how?). If playerOccupied contains the point that is removed, increment computer point counter by 1. If computerOccupied contains the point that is removed, increment player point counter by 1. DONE EXCEPT FOR REMOVING THREEJS OBJECT.
 6. Add random time delay between 5-10 seconds for each computer move to be executed.
 7. Show the score in the console after each human move.
 */
