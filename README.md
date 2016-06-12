@@ -1,6 +1,9 @@
-# wdipurplerain_project1    
+# wdipurplerain_project1  
 
-Epic user story: As a user who understands the rules of Go, I want to be able to play a game in an interface that is enjoyable, non-monotonous and intuitive.    
+**_Go_**  
+
+**Epic user story:**  
+As a user who understands the rules of Go, I want to be able to play a game in an interface that is enjoyable, non-monotonous and intuitive.    
 
 **Smaller user stories:**  
 1: As a user who does not know the rules of Go, I want to see a tutorial that teaches me the rules.  
