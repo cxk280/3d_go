@@ -144,8 +144,6 @@ $( document ).ready(function() {
       };
     })();
 
-    console.log(allNeighbors);
-
     var randomizer;
 
     var playerOccupied = [];
@@ -425,9 +423,64 @@ $( document ).ready(function() {
     var raycaster = new THREE.Raycaster();
     var mouseVector = new THREE.Vector2();
 
+  // 5.1 Create an empty array called playerOccupied and another empty array called computerOccupied. Add occupied center points to the appropriate array when they are played. DELETE THE REMOVAL OF ELEMENTS FROM CENTERPOINTS WITH EACH MOVE. THAT ARRAY MUST NOT BE CHANGED. INSTEAD RUN A FUNCTION TO CHECK IF playerOccupied or computerOccupied CONTAINS THE POINT. DONE
+  // 5.2 Create a new empty array called allNeighbors, with each element to be an array with neighbors for each square. Since the elements of centerPoints are listed in order, the elements of allNeighbors can be added by writing a self-calling function to push to allNeighbors. Example: for non-border squares, the neighbors (I think) would be [centerPoints[i-9], centerPoints[i+9], centerPoints[i+1], centerPoints[i-1]]. The corners should be added individually. Bottom side: [centerPoints[i-1], centerPoints[i+1], centerPoints[i+9]]. Top side: [centerPoints[i-1], centerPoints[i+1], centerPoints[i-9]]. Left side: [centerPoints[i+1], centerPoints[i-9], centerPoints[i+9]]. Right side: [centerPoints[i-1], centerPoints[i+9], centerPoints[i-9]]. DONE
+  // 5.3 After every turn, run a function iterating through playerOccupied and computerOccupied to see if all the elements of any array element of allNeighbors appears. If so, remove that center point from either playerOccupied or computerOccupied. Also remove the three.js object at that position (how?). If playerOccupied contains the point that is removed, increment computer point counter by 1. If computerOccupied contains the point that is removed, increment player point counter by 1. DONE EXCEPT FOR REMOVING THREEJS OBJECT.
+  // 6. Add random time delay between 5-10 seconds for each computer move to be executed.
+  // 7. Show the score in the console after each human move.
+
+  //ADD TO FUNCTION TO REMOVE THREEJS OBJECTS.
+
+// var tempNeighborsArray = [];
+// var otherTempArr = [];
+
+//     function playerAllNeighborsCheck()  {
+//       var centerPointsIndex;
+//       var spliceHere;
+//       for (let i=0; i < computerOccupied.length; i++) {
+//         for (let j=0; j < centerPoints.length; j++) {
+//           if (centerPoints[j].toString() === computerOccupied[i].toString())  {
+//             centerPointsIndex = j;
+//             spliceHere = i;
+//           };
+//         };
+//         console.log("Center points indices: " + centerPointsIndices);
+//         for (k=0; k < allNeighbors[centerPointsIndex].length; k++)  {
+//           tempNeighborsArray.push(allNeighbors[centerPointsIndex][k]);
+//         };
+//         console.log("tempneighbors array: " + tempNeighborsArray);
+//         console.log("playerOccupied array: " + playerOccupied);
+//         for (let m = 0; m < playerOccupied.length; m++) {
+//           for (let l=0; l < tempNeighborsArray.length; l++) {
+//             otherTempArr.push(playerOccupied[m].toString() === tempNeighborsArray[l].toString());
+//           };
+//         };
+//         console.log("othertemp array: " + otherTempArr);
+//         if (otherTempArr.includes(false) == false)  {
+//           scene.remove(centerPoints[centerPointsIndex]);
+//           computerOccupied.splice(spliceHere, 1);
+//           playerScore += 1;
+//         };
+//       tempNeighborsArray = [];
+//       otherTempArr = [];
+//       };
+//     console.log(" ");
+//     };
+
+//     function computerAllNeighborsCheck()  {
+//       for (let i=0; i < playerOccupied.length; i++) {
+//         var centerPointsIndex = centerPoints.indexOf(playerOccupied[i]);
+//         if (computerOccupied.includes(allNeighbors[centerPointsIndex]) == true)  {
+//           scene.remove(centerPoints[centerPointsIndex]);
+//           playerOccupied.splice(i, 1);
+//           computerScore += 1;
+//         };
+//       };
+//     };
+
 
     function addPlayerBlack(x,y,z)  {
-            console.log("Number of center points left at start of player move: " + centerPoints.length);
+            // console.log("Number of center points left at start of player move: " + centerPoints.length);
             var geometry55 = new THREE.SphereGeometry( 5, 32, 32 );
             var material55 = new THREE.MeshBasicMaterial( { color: 0x000000 } );
             var sphere55 = new THREE.Mesh( geometry55, material55 );
@@ -456,18 +509,23 @@ $( document ).ready(function() {
             // centerPoints.splice(addPieceHere, 1);
             // console.log("Number of center points left at end of player move: " + centerPoints.length);
             scene.add( sphere55 );
+            thisSphere = [];
+            thisSphere.push(sphere55.position.x);
+            thisSphere.push(sphere55.position.y);
+            thisSphere.push(sphere55.position.z);
+            playerOccupied.push(thisSphere);
             playerAllNeighborsCheck();
-            console.log("Player score is: " + playerScore + "; Computer score is: " + computerScore);
+            // console.log("Player score is: " + playerScore + "; Computer score is: " + computerScore);
             whichTurn += 1;
-            console.log("Turn number " + whichTurn);
+            // console.log("Turn number " + whichTurn);
             //Maybe use .subVectors, iterate through the entire centerPoints array and then use Math.min() to see which is smallest, then choose that
           };
 
     function addPlayerWhite(x,y,z)  {
-            console.log("Number of center points left at start of player move: " + centerPoints.length);
-            var geometry66 = new THREE.SphereGeometry( 5, 32, 32 );
-            var material66 = new THREE.MeshBasicMaterial( { color: 0xffffff } );
-            var sphere66 = new THREE.Mesh( geometry66, material66 );
+            // console.log("Number of center points left at start of player move: " + centerPoints.length);
+            var geometry55 = new THREE.SphereGeometry( 5, 32, 32 );
+            var material55 = new THREE.MeshBasicMaterial( { color: 0xffffff } );
+            var sphere55 = new THREE.Mesh( geometry55, material55 );
             var myArray = [];
             for (let i = 0; i < centerPoints.length; i++ )  {
               //Create new three.js vector3, thisVector = (x + ", " + y + ", " + z)
@@ -489,81 +547,53 @@ $( document ).ready(function() {
             //For line below, help finding the minimum number in an array from here: http://www.jstips.co/en/calculate-the-max-min-value-from-an-array/
             var addPieceHere = myArray.indexOf(Math.min.apply(null, myArray));
             //set the sphere's position to centerPoints[addPieceHere]
-            sphere66.position.set(centerPoints[addPieceHere][0],centerPoints[addPieceHere][1],centerPoints[addPieceHere][2]);
-            // centerPoints.splice(addPieceHere, 1);
-            // console.log("Number of center points left at end of player move: " + centerPoints.length);
-            scene.add( sphere66 );
+            sphere55.position.set(centerPoints[addPieceHere][0],centerPoints[addPieceHere][1],centerPoints[addPieceHere][2]);
+            scene.add( sphere55 );
+            thisSphere = [];
+            thisSphere.push(sphere55.position.x);
+            thisSphere.push(sphere55.position.y);
+            thisSphere.push(sphere55.position.z);
+            playerOccupied.push(thisSphere);
             playerAllNeighborsCheck();
-            console.log("Player score is: " + playerScore + "; Computer score is: " + computerScore);
+            // console.log("Player score is: " + playerScore + "; Computer score is: " + computerScore);
             whichTurn += 1;
-            console.log("Turn number " + whichTurn);
-            // geometry66 = new THREE.SphereGeometry( 5, 32, 32 );
-            // material66 = new THREE.MeshBasicMaterial( { color: 0xffffff } );
-            // sphere66 = new THREE.Mesh( geometry66, material66 );
-            // sphere66.position.set(x,y,z);
-            // scene.add( sphere66 );
-            // whichTurn += 1;
-            // console.log("Turn number " + whichTurn);
           };
 
     function addComputerBlack(x,y,z)  {
-            geometry77 = new THREE.SphereGeometry( 5, 32, 32 );
-            material77 = new THREE.MeshBasicMaterial( { color: 0x000000 } );
-            sphere77 = new THREE.Mesh( geometry77, material77 );
-            sphere77.position.set(x,y,z);
-            scene.add( sphere77 );
+            geometry55 = new THREE.SphereGeometry( 5, 32, 32 );
+            material55 = new THREE.MeshBasicMaterial( { color: 0x000000 } );
+            sphere55 = new THREE.Mesh( geometry55, material55 );
+            sphere55.position.set(x,y,z);
+            // console.log("Computer move is at: " + sphere55.position.x + ", " + sphere55.position.y + ", " + sphere55.position.z);
+            scene.add( sphere55 );
+            computerOccupied.push([sphere55.position.x,sphere55.position.y,sphere55.position.z])
+            // console.log(computerOccupied);
             computerAllNeighborsCheck();
-            console.log("Player score is: " + playerScore + "; Computer score is: " + computerScore);
+            // console.log("Player score is: " + playerScore + "; Computer score is: " + computerScore);
             whichTurn += 1;
-            console.log("Turn number " + whichTurn);
+            // console.log("Turn number " + whichTurn);
             // centerPoints.splice(randomizer, 1);
             // console.log("Number of center points remaining after computer move: " + centerPoints.length);
             //Add timeout to set 10 second delay before moving
           };
 
     function addComputerWhite(x,y,z)  {
-            geometry88 = new THREE.SphereGeometry( 5, 32, 32 );
-            material88 = new THREE.MeshBasicMaterial( { color: 0xffffff } );
-            sphere88 = new THREE.Mesh( geometry88, material88 );
-            sphere88.position.set(x,y,z);
-            scene.add( sphere88 );
+            geometry55 = new THREE.SphereGeometry( 5, 32, 32 );
+            material55 = new THREE.MeshBasicMaterial( { color: 0xffffff } );
+            sphere55 = new THREE.Mesh( geometry55, material55 );
+            sphere55.position.set(x,y,z);
+            // console.log("Computer move is at: " + sphere55.position.x + ", " + sphere55.position.y + ", " + sphere55.position.z);
+            scene.add( sphere55 );
+            computerOccupied.push([sphere55.position.x,sphere55.position.y,sphere55.position.z])
+            // console.log(computerOccupied);
             computerAllNeighborsCheck();
-            console.log("Player score is: " + playerScore + "; Computer score is: " + computerScore);
+            // console.log("Player score is: " + playerScore + "; Computer score is: " + computerScore);
             whichTurn += 1;
-            console.log("Turn number " + whichTurn);
+            // console.log("Turn number " + whichTurn);
             // centerPoints.splice(randomizer, 1);
             // console.log("Number of center points remaining after computer move: " + centerPoints.length);
             //Add timeout to set 10 second delay before moving
           };
-
-  // 5.1 Create an empty array called playerOccupied and another empty array called computerOccupied. Add occupied center points to the appropriate array when they are played. DELETE THE REMOVAL OF ELEMENTS FROM CENTERPOINTS WITH EACH MOVE. THAT ARRAY MUST NOT BE CHANGED. INSTEAD RUN A FUNCTION TO CHECK IF playerOccupied or computerOccupied CONTAINS THE POINT. DONE
-  // 5.2 Create a new empty array called allNeighbors, with each element to be an array with neighbors for each square. Since the elements of centerPoints are listed in order, the elements of allNeighbors can be added by writing a self-calling function to push to allNeighbors. Example: for non-border squares, the neighbors (I think) would be [centerPoints[i-9], centerPoints[i+9], centerPoints[i+1], centerPoints[i-1]]. The corners should be added individually. Bottom side: [centerPoints[i-1], centerPoints[i+1], centerPoints[i+9]]. Top side: [centerPoints[i-1], centerPoints[i+1], centerPoints[i-9]]. Left side: [centerPoints[i+1], centerPoints[i-9], centerPoints[i+9]]. Right side: [centerPoints[i-1], centerPoints[i+9], centerPoints[i-9]]. DONE
-  // 5.3 After every turn, run a function iterating through playerOccupied and computerOccupied to see if all the elements of any array element of allNeighbors appears. If so, remove that center point from either playerOccupied or computerOccupied. Also remove the three.js object at that position (how?). If playerOccupied contains the point that is removed, increment computer point counter by 1. If computerOccupied contains the point that is removed, increment player point counter by 1. DONE EXCEPT FOR REMOVING THREEJS OBJECT.
-  // 6. Add random time delay between 5-10 seconds for each computer move to be executed.
-  // 7. Show the score in the console after each human move.
-
-  //ADD TO FUNCTION TO REMOVE THREEJS OBJECTS.
-
-
-    function playerAllNeighborsCheck()  {
-      for (let i=0; i < computerOccupied.length; i++) {
-        var centerPointsIndex = centerPoints.indexOf(computerOccupied[i]);
-        if (playerOccupied.includes(allNeighbors[centerPointsIndex]) == true)  {
-          computerOccupied.splice(i, 1);
-          playerScore += 1;
-        };
-      };
-    };
-
-    function computerAllNeighborsCheck()  {
-      for (let i=0; i < playerOccupied.length; i++) {
-        var centerPointsIndex = centerPoints.indexOf(playerOccupied[i]);
-        if (computerOccupied.includes(allNeighbors[centerPointsIndex]) == true)  {
-          playerOccupied.splice(i, 1);
-          computerScore += 1;
-        };
-      };
-    };
 
     // function removeCheckPlayer (thisSphereVector) {
     //   if ((playerOccupied.includes(thisSphereVector) == false) && (computerOccupied.includes(thisSphereVector) == false))  {
