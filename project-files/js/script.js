@@ -458,7 +458,9 @@ $( document ).ready(function() {
             playerOccupied.push(thisSphere);
             // playerAllNeighborsCheck();
             whichTurn += 1;
-            console.log("Turn number " + whichTurn);
+            console.log("Turn number " + whichTurn + " completed");
+            console.log("Player score: " + playerScore + "; Computer score: " + computerScore);
+            console.log(" ");
         };
 
     function addPlayerWhite(x,y,z)  {
@@ -488,12 +490,16 @@ $( document ).ready(function() {
             playerOccupied.push(thisSphere);
             // playerAllNeighborsCheck();
             whichTurn += 1;
-            console.log("Turn number " + whichTurn);
+            console.log("Turn number " + whichTurn + " completed");
+            console.log("Player score: " + playerScore + "; Computer score: " + computerScore);
+            console.log(" ");
           };
 
     function addComputerBlack(x,y,z)  {
+        console.log("Computer thinking...");
         randomizer = Math.floor(2000 + (Math.random() * 8000));
         setTimeout (function()  {
+            console.log("The computer decided its move!");
             geometry55 = new THREE.SphereGeometry( 5, 32, 32 );
             material55 = new THREE.MeshBasicMaterial( { color: 0x000000 } );
             sphere55 = new THREE.Mesh( geometry55, material55 );
@@ -502,13 +508,19 @@ $( document ).ready(function() {
             computerOccupied.push([sphere55.position.x,sphere55.position.y,sphere55.position.z])
             // computerAllNeighborsCheck();
             whichTurn += 1;
-            console.log("Turn number " + whichTurn);
+            console.log("Turn number " + whichTurn + " completed");
+            console.log("Player score: " + playerScore + "; Computer score: " + computerScore);
+            console.log(" ");
+            console.log("What is your next move?");
+            console.log(" ");
           }, randomizer)
         };
 
     function addComputerWhite(x,y,z)  {
+        console.log("Computer thinking...");
         randomizer = Math.floor(2000 + (Math.random() * 8000));
         setTimeout (function() {
+              console.log("The computer decided its move!");
               geometry55 = new THREE.SphereGeometry( 5, 32, 32 );
               material55 = new THREE.MeshBasicMaterial( { color: 0xffffff } );
               sphere55 = new THREE.Mesh( geometry55, material55 );
@@ -517,7 +529,11 @@ $( document ).ready(function() {
               computerOccupied.push([sphere55.position.x,sphere55.position.y,sphere55.position.z])
               // computerAllNeighborsCheck();
               whichTurn += 1;
-              console.log("Turn number " + whichTurn);
+              console.log("Turn number " + whichTurn + " completed");
+              console.log("Player score: " + playerScore + "; Computer score: " + computerScore);
+              console.log(" ");
+              console.log("What is your next move?");
+              console.log(" ");
           }, randomizer)
         };
 
