@@ -2,6 +2,20 @@
 
 **_Go_**  
 
+For my project, I created the ancient East Asian game of Go. On the surface, Go is simple: an opponent's piece is captured by occupying all of its "freedoms," or adjacent squares (diagonally adjacent squares do not count). Each capture gives the capturing player one point. The game ends once both players pass their turn in order. Once the game ends, further scores are tallied by the territory controlled by each player. In practice, the territory usually plays a far more important role in determining the winner than the number of pieces captured.  
+
+To implement my project, I chose to teach myself the three.js library, as Jason mentioned some past projects had used it. Before four days ago, I had never looked at three.js. Three.js is a library similar to jQuery, but it is used to create 3D animations.  
+
+The game is deployed online at http://cxk280.github.io/wdipurplerain_project1/project-files/index.html. Upon arriving at the page, the player should open the console in the developer tools for some instructions.  
+
+Unfortunately, I was unable to fully implement the rules, as I could not devise a working function to remove surrounded pieces. Without this function working, it is impossible to arrive at the end state. My attempts to devise such functions remain as comments within the code.  
+
+However, I do consider the large amount of three.js I learned in a short period of time a significant success. While three.js is probably best utilized to create animations rather than interactive games, I feel that I am now equipped to use it more comfortably moving forward.  
+
+The player may initially be most impressed by the mouse trackpad camera zooming feature. This actually was not very difficult, as three.js provides an additional library on their site for this that you simply have to plug in. My biggest accomplishment, I feel, was getting the game pieces to appear on the board where the player clicks. There are some unresolved issues with the accuracy on this, but there is enough control to make the game playable. I am also quite proud of successfully implementing a random computer move on a square not occupied by the player.  
+
+I do encourage those considering three.js for any project to consider the vast increase in complexity enatiled by working in three dimensions. I certainly underestimated this challenge.  
+
 **Epic user story:**  
 As a user who understands the rules of Go, I want to be able to play a game in an interface that is enjoyable, non-monotonous and intuitive.    
 
@@ -22,12 +36,12 @@ Note: The game of Go ends when both players pass turns consecutively.
 
 **Citations:**  
 
-*Three.js in general:*
+*Three.js in general:*  
 1. My three.js objects started with the code in the tutorial at http://threejs.org/docs/#Manual/Introduction/Creating_a_scene. I then played with this code referring to the rest of the three.js documentation as well as various posts on Stack Overflow and elsewhere (cited below) to create what I need.  
 
 *Camera and trackball controls:*  
 1. I learned how to control the camera with the mouse here: http://benchung.com/trackball-controls-three-js. See also the notes in the trackball-controls.js file.  
-2. I did not create or edit the trackball-controls.js file. That file is a free-to-use example from the three.js website. It may be found here: https://github.com/mrdoob/three.js/blob/master/examples/js/controls/TrackballControls.js. All credit goes to the maintainers of three.js. I was pointed in this direction by this Stack Overflow post: http://stackoverflow.com/questions/8426822/rotate-camera-in-three-js-with-mouse. 
+2. I did not create or edit the trackball-controls.js file. That file is a free-to-use example from the three.js website. It may be found here: https://github.com/mrdoob/three.js/blob/master/examples/js/controls/TrackballControls.js. All credit goes to the maintainers of three.js. I was pointed in this direction by this Stack Overflow post: http://stackoverflow.com/questions/8426822/rotate-camera-in-three-js-with-mouse.  
 
 *Raycasting help:*  
 1. Started off from tutorial at https://soledadpenades.com/articles/three-js-tutorials/object-picking/  
