@@ -383,8 +383,24 @@ $( document ).ready(function() {
 
 //Below are my failed attempts to make functions that removed surrounded game pieces and incremented the opponent's score.
 
+var allSquares = {};
+
+for (let i = 0; i < centerPoints.length; i++) {
+  allSquares["square" + (i + 1)] = {neighbors : allNeighbors[i]};
+};
+
+function playerAllNeighborsCheck()  {
+  for (let i = 0; i < playerOccupied.length; i++) {
+    //see if playerOccupied contains every element of allSquares["square" + (i + 1)].neighbors
+    if () {
+
+    };
+  };
+};
+
 // var tempNeighborsArray = [];
 // var otherTempArr = [];
+// var centerPointsIndices = [];
 
 //     function playerAllNeighborsCheck()  {
 //       var centerPointsIndex;
@@ -392,13 +408,15 @@ $( document ).ready(function() {
 //       for (let i=0; i < computerOccupied.length; i++) {
 //         for (let j=0; j < centerPoints.length; j++) {
 //           if (centerPoints[j].toString() === computerOccupied[i].toString())  {
-//             centerPointsIndex = j;
+//             centerPointsIndices.push(j);
 //             spliceHere = i;
 //           };
 //         };
-//         console.log("Center points indices: " + centerPointsIndices);
-//         for (k=0; k < allNeighbors[centerPointsIndex].length; k++)  {
-//           tempNeighborsArray.push(allNeighbors[centerPointsIndex][k]);
+//         console.log(centerPointsIndices);
+//         for (let n=0; n < centerPointsIndices.length; n++)  {
+//           for (let k=0; k < allNeighbors[n].length; k++)  {
+//             tempNeighborsArray.push(allNeighbors[n][k]);
+//           };
 //         };
 //         console.log("tempneighbors array: " + tempNeighborsArray);
 //         console.log("playerOccupied array: " + playerOccupied);
