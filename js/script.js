@@ -389,14 +389,14 @@ for (let i = 0; i < centerPoints.length; i++) {
   allSquares["square" + (i + 1)] = {neighbors : allNeighbors[i]};
 };
 
-function playerAllNeighborsCheck()  {
-  for (let i = 0; i < playerOccupied.length; i++) {
-    //see if playerOccupied contains every element of allSquares["square" + (i + 1)].neighbors
-    if () {
+// function playerAllNeighborsCheck()  {
+//   for (let i = 0; i < playerOccupied.length; i++) {
+//     //see if playerOccupied contains every element of allSquares["square" + (i + 1)].neighbors
+//     if () {
 
-    };
-  };
-};
+//     };
+//   };
+// };
 
 // var tempNeighborsArray = [];
 // var otherTempArr = [];
